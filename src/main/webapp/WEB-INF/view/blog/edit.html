@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<form th:object="${blog}" th:action="@{/edit}" method="post">
+    <fieldset>
+        <legend>Blog Information:</legend>
+        <table>
+            <tr style="display: none;">
+                <td><input type="hidden" th:field="*{id}"></td>
+            <tr>
+                <td th:text="'Author'"></td>
+                <td><input th:field="*{author}"/></td>
+            </tr>
+            <tr>
+                <td th:text="'Title'"></td>
+                <td><input th:field="*{title}"></td>
+            </tr>
+            <tr>
+                <td>Publish Date:</td>
+                <td><input th:field="*{datePublish}"></td>
+                <td th:if="${#fields.hasErrors('datePublish')}" th:errors="*{datePublish}" style="color:red"></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><input th:field="*{description}"></td>
+            </tr>
+            <tr style="display: none;">
+                <td><input type="hidden" th:field="*{content}"></td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>
+                    <select th:field="*{category}">
+                        <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" th:value="'Edit This Blog'" >
+    </fieldset>
+
+</form>
+
+<p><a th:href="@{/list}" th:text="'Back to blog list'"></a></p>
+</body>
+</html>

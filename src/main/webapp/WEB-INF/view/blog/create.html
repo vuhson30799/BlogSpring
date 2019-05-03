@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<h1 th:text="'Create new Blog'"></h1>
+<h1 th:if="${message} != null" th:text="#{create.success}"></h1>
+<form th:action="@{/create-blog}" th:object="${blog}" method="post">
+    <table>
+        <!--<tr>-->
+            <!--<td th:text="'Id:'"></td>-->
+            <!--<td><input type="text" th:field="*{id}"></td>-->
+        <!--</tr>-->
+        <tr>
+            <td th:text="'Title:'">Title:</td>
+            <td><input type="text" th:field="*{title}"></td>
+        </tr>
+        <tr>
+            <td th:text="'Content:'">Content:</td>
+            <td><input type="text" th:field="*{content}"></td>
+        </tr>
+        <tr>
+            <td>Author:</td>
+            <td><input type="text" th:field="*{author}"></td>
+        </tr>
+        <tr>
+            <td>Date publish:</td>
+            <td><input type="text" th:field="*{datePublish}" th:value="*{datePublish}"/> </td>
+            <td th:if="${#fields.hasErrors('datePublish')}" th:errors="*{datePublish}" style="color:red"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" th:field="*{description}"></td>
+        </tr>
+        <tr>
+            <td>Categories:</td>
+            <td>
+                <select th:field="*{category}">
+                    <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" th:value="'submit'"></td>
+        </tr>
+    </table>
+
+</form>
+
+<p><a th:href="@{/list}" th:text="'Back to blog list'"></a></p>
+</body>
+</html>

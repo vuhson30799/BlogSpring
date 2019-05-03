@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<p th:if="${message} != null" th:text="${message}"></p>
+<th:block th:object="${blog}">
+    <fieldset>
+        <legend th:text="'Blog by ' + *{author}">
+            Blog
+        </legend>
+        <table>
+            <tr>
+                <td th:text="'Title:'">Title:</td>
+                <td th:text="*{title}"></td>
+            </tr>
+            <tr>
+                <td th:text="'Content:'">Content:</td>
+                <td th:text="*{content}"></td>
+            </tr>
+            <tr>
+                <td>Publish Date:</td>
+                <td th:text="*{datePublish}"></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td th:text="*{description}"></td>
+            </tr>
+        </table>
+    </fieldset>
+</th:block>
+<p><a th:href="@{/list}" th:text="'Back to blog list'"></a></p>
+</body>
+</html>
