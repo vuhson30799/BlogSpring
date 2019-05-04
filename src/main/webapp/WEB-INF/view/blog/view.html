@@ -6,6 +6,7 @@
 </head>
 <body>
 <p th:if="${message} != null" th:text="${message}"></p>
+<h1 th:text="'Category: ' + ${blog.category.name}"></h1>
 <th:block th:object="${blog}">
     <fieldset>
         <legend th:text="'Blog by ' + *{author}">

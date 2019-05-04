@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog</title>
+</head>
+<body>
+<form th:action="@{/blog-find/author}" th:object="${blog.author}" method="post">
+    <fieldset>
+        <legend>Find By Author:</legend>
+        <table>
+            <tr>
+                <td>Author: </td>
+                <td><input type="text" th:field="${blog.author}"/> </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="submit" th:value="'Find'">
+</form>
+<form th:action="@{/blog-find/title}" th:object="${blog.title}" method="post">
+    <fieldset>
+        <legend>Find By Title:</legend>
+        <table>
+            <tr>
+                <td>Title: </td>
+                <td><input type="text" th:field="${blog.title}"/> </td>
+            </tr>
+        </table>
+    </fieldset>
+    <input type="submit" th:value="'Find'">
+</form>
+</body>
+</html>

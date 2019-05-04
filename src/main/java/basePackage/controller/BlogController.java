@@ -5,8 +5,9 @@ import basePackage.model.Category;
 import basePackage.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -114,5 +115,45 @@ public class BlogController {
         modelAndView.addObject("blogList",blogService.findAll(pageable));
         return modelAndView;
     }
+    @GetMapping("/blog-sorted")
+    public ModelAndView dateSorted(){
+        ModelAndView modelAndView = new ModelAndView("blog/list");
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "datePublish"));
+        Pageable pageable = new PageRequest(0,20,sort);
+        modelAndView.addObject("blogList",blogService.findAll(pageable));
+        return modelAndView;
+    }
+    @GetMapping("/blog-sorted/{id}")
+    public ModelAndView dateSortedCategory(@PathVariable(name = "id")Long id){
+        ModelAndView modelAndView = new ModelAndView("blog/list");
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "datePublish"));
+        Pageable pageable = new PageRequest(0,10,sort);
+        modelAndView.addObject("blogList",blogService.findBlogsByCategory_Name(categoryService.findById(id).getName(),pageable));
+        return modelAndView;
+    }
+    @GetMapping("/blog-find")
+    public ModelAndView findForm(){
+        return new ModelAndView("blog/find","blog",new Blog());
+    }
+    @PostMapping("/blog-find/author")
+    public ModelAndView findAuthor(@ModelAttribute(name = "author")String author,Pageable pageable){
+        ModelAndView modelAndView = new ModelAndView("blog/list");
+        if (blogService.findByAuthor(author,pageable).getTotalPages() == 0){
+            return new ModelAndView("error.404","author",author);
+        }else {
+            modelAndView.addObject("blogList",blogService.findByAuthor(author,pageable));
+            return modelAndView;
+        }
 
+    }
+    @PostMapping("/blog-find/title")
+    public ModelAndView findTitle(@ModelAttribute(name = "title")String title,Pageable pageable){
+        ModelAndView modelAndView = new ModelAndView("blog/list");
+        if (blogService.findByTitle(title,pageable).getTotalPages() == 0){
+            return new ModelAndView("error.404","title",title);
+        }else {
+            modelAndView.addObject("blogList",blogService.findByTitle(title,pageable));
+            return modelAndView;
+        }
+    }
 }

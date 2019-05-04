@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+<h1 th:if="${author} != null" th:text="${author} + ' is not exist'"></h1>
+<h1 th:if="${title} != null" th:text="${title} + ' is not exist'"></h1>
+<p><a th:href="@{/list}" th:text="'Back to blog list'"></a></p>
+</body>
+</html>

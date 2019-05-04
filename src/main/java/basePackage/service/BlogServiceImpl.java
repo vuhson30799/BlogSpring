@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import basePackage.repository.BlogRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
+import java.util.Date;
 import java.util.List;
 
 public class BlogServiceImpl implements BlogService {
@@ -37,4 +39,16 @@ public class BlogServiceImpl implements BlogService {
     public Page<Blog> findBlogsByCategory_Name(String name, Pageable pageable) {
         return blogRepository.findBlogsByCategory_Name(name,pageable);
     }
+
+    @Override
+    public Page<Blog> findByTitle(String name, Pageable pageable) {
+        return blogRepository.findByTitle(name,pageable);
+    }
+
+    @Override
+    public Page<Blog> findByAuthor(String name, Pageable pageable) {
+        return blogRepository.findByAuthor(name,pageable);
+    }
+
+
 }
