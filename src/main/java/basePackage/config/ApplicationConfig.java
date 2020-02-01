@@ -1,4 +1,4 @@
-package basePackage;
+package basePackage.config;
 
 import basePackage.formatter.CategoryFormatter;
 import basePackage.repository.BlogRepository;
@@ -16,6 +16,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
@@ -25,12 +26,14 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
@@ -52,6 +55,7 @@ import java.util.Properties;
 @EnableJpaRepositories("basePackage.repository")
 @EnableSpringDataWebSupport
 @ComponentScan("basePackage")
+@Import(SecurityConfig.class)
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
@@ -77,6 +81,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         templateResolver.setPrefix("/WEB-INF/view/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCharacterEncoding("UTF-8");
         return templateResolver;
     }
 
@@ -172,6 +177,14 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new CategoryFormatter(applicationContext.getBean(CategoryService.class)));
     }
-
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/bootstrap/**").addResourceLocations("/WEB-INF/assets/bootstrap/css/");
+        registry.addResourceHandler("/bootstrap/js/**").addResourceLocations("/WEB-INF/assets/bootstrap/js/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("/WEB-INF/assets/fonts/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/WEB-INF/assets/img/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/assets/js/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/assets/css/");
+    }
 
 }

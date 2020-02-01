@@ -1,10 +1,10 @@
 package basePackage.model;
 
-import com.sun.istack.NotNull;
 import org.hibernate.annotations.Filter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Entity

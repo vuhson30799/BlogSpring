@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +23,7 @@ import javax.transaction.Transactional;
 import java.util.Date;
 
 @Controller
-@Transactional
+//@Transactional
 public class BlogController {
     @Autowired
     private BlogService blogService;
@@ -64,14 +66,14 @@ public class BlogController {
 
     }
     @GetMapping("/create-blog")
-    public ModelAndView createForm (Pageable pageable){
+    public ModelAndView createForm (){
         ModelAndView modelAndView = new ModelAndView("blog/create");
         modelAndView.addObject("blog",new Blog(new Date()));
         return modelAndView;
     }
     @GetMapping("/list")
     public ModelAndView listBlog(Pageable pageable){
-        ModelAndView modelAndView = new ModelAndView("blog/list","blogList",blogService.findAll(pageable));
+        ModelAndView modelAndView = new ModelAndView("blog/list","blogList",blogService.findRandom(pageable));
         modelAndView.addObject("message","Successful");
         return modelAndView;
     }
@@ -102,17 +104,18 @@ public class BlogController {
             return modelAndView;
         }
     }
-    @GetMapping("/delete/{id}")
+    @GetMapping("/admin/delete/{id}")
     public ModelAndView deleteForm(@PathVariable Long id){
         ModelAndView modelAndView = new ModelAndView("blog/delete");
         modelAndView.addObject("blog",blogService.findById(id));
         return modelAndView;
     }
-    @PostMapping("/delete")
+    @PostMapping("/admin/delete")
     public ModelAndView delete(@ModelAttribute(name = "id") Long id,Pageable pageable){
         ModelAndView modelAndView = new ModelAndView("blog/list");
         blogService.remove(id);
         modelAndView.addObject("blogList",blogService.findAll(pageable));
+
         return modelAndView;
     }
     @GetMapping("/blog-sorted")

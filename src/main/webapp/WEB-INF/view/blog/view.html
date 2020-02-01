@@ -9,29 +9,29 @@
 <h1 th:text="'Category: ' + ${blog.category.name}"></h1>
 <th:block th:object="${blog}">
     <fieldset>
-        <legend th:text="'Blog by ' + *{author}">
+        <legend th:text="#{form.legend} +'Blog by ' + *{author}">
             Blog
         </legend>
         <table>
             <tr>
-                <td th:text="'Title:'">Title:</td>
+                <td th:text="#{form.title}"></td>
                 <td th:text="*{title}"></td>
             </tr>
             <tr>
-                <td th:text="'Content:'">Content:</td>
+                <td th:text="#{form.content}">Content:</td>
                 <td th:text="*{content}"></td>
             </tr>
             <tr>
-                <td>Publish Date:</td>
+                <td th:text="#{form.datePublish}"></td>
                 <td th:text="*{datePublish}"></td>
             </tr>
             <tr>
-                <td>Description:</td>
+                <td th:text="#{form.description}"></td>
                 <td th:text="*{description}"></td>
             </tr>
         </table>
     </fieldset>
 </th:block>
-<p><a th:href="@{/list}" th:text="'Back to blog list'"></a></p>
+<p><a th:href="@{/list}" th:text="#{backToHomePage}"></a></p>
 </body>
 </html>

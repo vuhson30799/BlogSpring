@@ -27,12 +27,4 @@ public class CategoryFormatter implements Formatter<Category> {
     public String print(Category category, Locale locale) {
         return "[" + category.getId() + ", " + category.getName() + "]";
     }
-
-    public CategoryService getCategoryService() {
-        return categoryService;
-    }
-
-    public void setCategoryService(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
 }

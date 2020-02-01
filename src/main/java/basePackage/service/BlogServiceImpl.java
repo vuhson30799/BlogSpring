@@ -50,5 +50,10 @@ public class BlogServiceImpl implements BlogService {
         return blogRepository.findByAuthor(name,pageable);
     }
 
+    @Override
+    public Page<Blog> findRandom(Pageable pageable) {
+        return blogRepository.findRandom(pageable);
+    }
+
 
 }

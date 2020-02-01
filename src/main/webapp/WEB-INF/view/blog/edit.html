@@ -5,34 +5,35 @@
     <title>Blog</title>
 </head>
 <body>
+<h1 th:text="#{title.edit}"></h1>
 <form th:object="${blog}" th:action="@{/edit}" method="post">
     <fieldset>
-        <legend>Blog Information:</legend>
+        <legend th:value="#{form.legend}"></legend>
         <table>
             <tr style="display: none;">
                 <td><input type="hidden" th:field="*{id}"></td>
             <tr>
-                <td th:text="'Author'"></td>
+                <td th:text="#{form.author}"></td>
                 <td><input th:field="*{author}"/></td>
             </tr>
             <tr>
-                <td th:text="'Title'"></td>
+                <td th:text="#{form.title}"></td>
                 <td><input th:field="*{title}"></td>
             </tr>
             <tr>
-                <td>Publish Date:</td>
+                <td th:text="#{form.datePublish}"></td>
                 <td><input th:field="*{datePublish}"></td>
                 <td th:if="${#fields.hasErrors('datePublish')}" th:errors="*{datePublish}" style="color:red"></td>
             </tr>
             <tr>
-                <td>Description:</td>
+                <td th:text="#{form.description}"></td>
                 <td><input th:field="*{description}"></td>
             </tr>
             <tr style="display: none;">
                 <td><input type="hidden" th:field="*{content}"></td>
             </tr>
             <tr>
-                <td>Category:</td>
+                <td th:text="#{form.categories}"></td>
                 <td>
                     <select th:field="*{category}">
                         <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
@@ -40,11 +41,11 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" th:value="'Edit This Blog'" >
+        <input type="submit" th:value="#{form.submit}" >
     </fieldset>
 
 </form>
 
-<p><a th:href="@{/list}" th:text="'Back to blog list'"></a></p>
+<p><a th:href="@{/list}" th:text="#{backToHomePage}"></a></p>
 </body>
 </html>

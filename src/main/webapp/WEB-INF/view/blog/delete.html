@@ -5,26 +5,26 @@
     <title>Blog</title>
 </head>
 <body>
+<h1 th:text="#{title.delete}"></h1>
 <th:block th:object="${blog}">
     <fieldset>
-        <legend th:text="'Blog by ' + *{author}">
-            Blog
+        <legend th:text="#{form.legend} +'Blog by' + *{author}">
         </legend>
         <table>
             <tr>
-                <td>Title:</td>
+                <td th:text="#{form.title}"></td>
                 <td th:text="*{title}"></td>
             </tr>
             <tr>
-                <td>Content:</td>
+                <td th:text="#{form.content}"></td>
                 <td th:text="*{content}"></td>
             </tr>
             <tr>
-                <td>Publish Date:</td>
+                <td th:text="#{form.datePublish}"></td>
                 <td th:text="*{datePublish}"></td>
             </tr>
             <tr>
-                <td>Description:</td>
+                <td th:text="#{form.description}"></td>
                 <td th:text="*{description}"></td>
             </tr>
         </table>
@@ -32,7 +32,7 @@
 </th:block>
 <form th:object="${blog.id}" method="post" th:action="@{/delete}">
     <input type="text" th:field="${blog.id}" style="display: none;">
-    <input type="submit" th:value="'Delete This Blog'">
+    <input type="submit" th:value="#{form.submit}">
 </form>
 
 </body>

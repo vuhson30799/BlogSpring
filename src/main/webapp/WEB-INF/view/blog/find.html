@@ -4,29 +4,31 @@
     <title>Blog</title>
 </head>
 <body>
+<h1 th:text="#{title.find}"></h1>
+<p><a href="?lang=en">English</a>|<a href="?lang=de">German</a>|<a href="?lang=vi">Vietnamese</a></p>
 <form th:action="@{/blog-find/author}" th:object="${blog.author}" method="post">
     <fieldset>
-        <legend>Find By Author:</legend>
+        <legend th:text="#{form.legend.find1}"></legend>
         <table>
             <tr>
-                <td>Author: </td>
+                <td th:text="#{form.author}"></td>
                 <td><input type="text" th:field="${blog.author}"/> </td>
             </tr>
         </table>
     </fieldset>
-    <input type="submit" th:value="'Find'">
+    <input type="submit" th:value="#{form.submit}">
 </form>
 <form th:action="@{/blog-find/title}" th:object="${blog.title}" method="post">
     <fieldset>
-        <legend>Find By Title:</legend>
+        <legend th:text="#{form.legend.find2}"></legend>
         <table>
             <tr>
-                <td>Title: </td>
+                <td th:text="#{form.title}"></td>
                 <td><input type="text" th:field="${blog.title}"/> </td>
             </tr>
         </table>
     </fieldset>
-    <input type="submit" th:value="'Find'">
+    <input type="submit" th:value="#{form.submit}">
 </form>
 </body>
 </html>
